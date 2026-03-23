@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "track": "Track",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "language": "中文"
+  },
+  "hero": {
+    "headline": "Stalking admissions threads shouldn't be a full-time job.",
+    "subheadline": "Waitlisteria tracks waitlist and offer activity across Reddit, Gradcafe, and Rednote — so you don't have to.",
+    "cta": "Start tracking — no sign-in needed"
+  },
+  "steps": {
+    "one": "Add your schools",
+    "oneDesc": "Enter up to 10 programs you've applied to.",
+    "two": "AI searches the web",
+    "twoDesc": "Waitlisteria scans Reddit, Gradcafe, and Rednote for real applicant reports.",
+    "three": "See your odds",
+    "threeDesc": "Get structured data on offer rounds, waitlist movement, and admission probability."
+  },
+  "form": {
+    "addSchool": "+ Add school",
+    "maxSchools": "Maximum 10 schools reached",
+    "schoolName": "University name",
+    "degree": "Degree",
+    "program": "Program / field",
+    "season": "Season",
+    "confirm": "Confirm & Analyze",
+    "degrees": {
+      "bachelors": "Bachelor's",
+      "masters": "Master's",
+      "phd": "PhD",
+      "mba": "MBA",
+      "jd": "JD",
+      "md": "MD",
+      "other": "Other"
+    }
+  },
+  "card": {
+    "live": "LIVE",
+    "cached": "CACHED",
+    "lastUpdated": "Last updated {time} ago",
+    "offerRounds": "Offer rounds reported",
+    "latestRound": "Latest round",
+    "estAdmitted": "Est. total admitted",
+    "waitlistedReports": "Waitlisted reports",
+    "wlHistorical": "WL → Admitted (historical)",
+    "prediction": "Prediction",
+    "moreOffersBy": "More offers likely before",
+    "wlChance": "WL admission chance",
+    "sources": "Data sources",
+    "sourceNote": "小红书 results are best-effort — Reddit and Gradcafe are more reliable sources.",
+    "disclaimer": "Based on community reports — not official data",
+    "noData": "No community reports found yet for this program. Check back as the season progresses.",
+    "insufficientData": "Insufficient data"
+  },
+  "summary": {
+    "title": "Overall Summary",
+    "totalTracked": "Schools tracked",
+    "activeRounds": "With active offer rounds",
+    "wlMovement": "WL movement this week"
+  },
+  "notify": {
+    "cta": "Get notified when new offers are reported",
+    "signInPrompt": "Enter your email to get notified. We'll send a magic link.",
+    "enabled": "Notifications enabled (checked every 2 hours)",
+    "toggle": "Notify me when offers or WL decisions are reported",
+    "note": "You'll only be notified on meaningful changes: new offer rounds, WL admits, or WL rejects. No spam."
+  },
+  "loading": {
+    "searching": "Searching Reddit, Gradcafe, Rednote for {school} {program} {degree}...",
+    "analyzing": "Aggregating and filtering noise...",
+    "almost": "Almost done..."
+  },
+  "fallback": {
+    "banner": "Live search unavailable — showing cached result from {date}. Donate to restore live search."
+  },
+  "footer": {
+    "tagline": "Donations fund live AI search.",
+    "ethLabel": "ETH",
+    "withoutDonation": "Without donations, results may be up to 24h old.",
+    "free": "This tool is free and always will be."
+  },
+  "errors": {
+    "tooManyRequests": "Too many requests. Please wait a few minutes and try again.",
+    "agentFailed": "Search failed. Please try again.",
+    "noSchools": "Add at least one school to continue."
+  },
+  "events": {
+    "newOfferRound": "New offer round reported",
+    "wlAdmit": "Waitlist admit signals detected",
+    "wlReject": "Waitlist rejection wave detected"
+  },
+  "metadata": {
+    "title": "Waitlisteria — Admission Waitlist Tracker",
+    "description": "Track graduate and undergraduate admission waitlists and offer trends in real time. Powered by AI."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "track": "追踪",
+    "signIn": "登录",
+    "signOut": "退出",
+    "language": "English"
+  },
+  "hero": {
+    "headline": "我将永远视奸offer",
+    "subheadline": "候博士自动追踪 Reddit、Gradcafe 和小红书上的 waitlist 与 offer 动态——让你不必亲自守着。",
+    "cta": "开始追踪——无需登录"
+  },
+  "steps": {
+    "one": "添加学校",
+    "oneDesc": "输入你申请的学校和项目，最多 10 个。",
+    "two": "AI 搜索全网",
+    "twoDesc": "候博士扫描 Reddit、Gradcafe 和小红书上的真实申请者报告。",
+    "three": "查看概率",
+    "threeDesc": "获取 offer 轮次、候补动态和录取概率的结构化数据。"
+  },
+  "form": {
+    "addSchool": "+ 添加学校",
+    "maxSchools": "最多添加 10 所学校",
+    "schoolName": "大学名称",
+    "degree": "学位",
+    "program": "专业 / 方向",
+    "season": "申请季",
+    "confirm": "确认并分析",
+    "degrees": {
+      "bachelors": "本科",
+      "masters": "硕士",
+      "phd": "博士",
+      "mba": "MBA",
+      "jd": "JD",
+      "md": "MD",
+      "other": "其他"
+    }
+  },
+  "card": {
+    "live": "实时",
+    "cached": "缓存",
+    "lastUpdated": "{time}前更新",
+    "offerRounds": "已报告 offer 轮次",
+    "latestRound": "最新一轮",
+    "estAdmitted": "预计录取总人数",
+    "waitlistedReports": "候补报告数",
+    "wlHistorical": "候补转录（历史）",
+    "prediction": "预测",
+    "moreOffersBy": "预计下一轮 offer 时间",
+    "wlChance": "候补录取概率",
+    "sources": "数据来源",
+    "sourceNote": "小红书数据为尽力抓取，不保证完整性——Reddit 和 Gradcafe 为主要可靠来源。",
+    "disclaimer": "数据来自申请者社区，非官方信息",
+    "noData": "暂未发现该项目的社区报告，请随申请季进展持续关注。",
+    "insufficientData": "数据不足"
+  },
+  "summary": {
+    "title": "综合总结",
+    "totalTracked": "追踪学校数",
+    "activeRounds": "有活跃 offer 轮次",
+    "wlMovement": "本周候补有动态"
+  },
+  "notify": {
+    "cta": "有新动态时通知我",
+    "signInPrompt": "输入邮箱接收通知，我们将发送登录链接。",
+    "enabled": "通知已开启（每2小时检查一次）",
+    "toggle": "有 offer 或候补结果时通知我",
+    "note": "仅在有实质变动时通知：新 offer 轮次、候补转录、候补拒绝。不会频繁打扰。"
+  },
+  "loading": {
+    "searching": "正在搜索 {school} {program} {degree} 的相关信息（Reddit、Gradcafe、小红书）……",
+    "analyzing": "正在聚合分析并过滤无效信息……",
+    "almost": "快好了……"
+  },
+  "fallback": {
+    "banner": "实时搜索暂不可用——显示 {date} 的缓存结果。捐赠以恢复实时搜索。"
+  },
+  "footer": {
+    "tagline": "捐赠支持实时 AI 搜索。",
+    "ethLabel": "ETH",
+    "withoutDonation": "无捐赠时，结果可能延迟最多 24 小时。",
+    "free": "候博士永久免费。"
+  },
+  "errors": {
+    "tooManyRequests": "请求过于频繁，请稍后再试。",
+    "agentFailed": "搜索失败，请重试。",
+    "noSchools": "请至少添加一所学校。"
+  },
+  "events": {
+    "newOfferRound": "新一轮 offer 已报告",
+    "wlAdmit": "检测到候补转录信号",
+    "wlReject": "检测到候补拒绝波"
+  },
+  "metadata": {
+    "title": "候博士 — 录取候补追踪器",
+    "description": "实时追踪研究生和本科录取候补名单与 offer 动态，AI 驱动。"
+  }
+}
