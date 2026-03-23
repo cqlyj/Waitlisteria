@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #faf8f5;
+  --color-bg-warm: #f5f0eb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #fefcfa;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.15);
+
+  --color-amber: #f59e0b;
+  --color-amber-soft: #fef3c7;
+  --color-amber-hover: #d97706;
+  --color-teal: #14b8a6;
+  --color-teal-soft: #ccfbf1;
+  --color-coral: #f87171;
+  --color-coral-soft: #fee2e2;
+  --color-muted: #9ca3af;
+  --color-text: #1f2937;
+  --color-text-secondary: #6b7280;
+
+  --font-display: "DM Mono", ui-monospace, monospace;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-cjk: "Noto Sans SC", "DM Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html[lang="zh"] body {
+    font-family: var(--font-cjk);
+    line-height: 1.9;
+  }
+
+  html:not([lang="zh"]) body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: rgba(245, 158, 11, 0.25);
+    color: #1f2937;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes pulse-amber {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-3deg); }
+  30% { transform: rotate(2.5deg); }
+  45% { transform: rotate(-2deg); }
+  60% { transform: rotate(1.5deg); }
+  75% { transform: rotate(-1deg); }
+  90% { transform: rotate(0.5deg); }
+}
+
+@keyframes shake-subtle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-1px) rotate(-0.5deg); }
+  40% { transform: translateX(1px) rotate(0.5deg); }
+  60% { transform: translateX(-1px) rotate(-0.3deg); }
+  80% { transform: translateX(1px) rotate(0.3deg); }
+}
+
+@utility animate-pulse-amber {
+  animation: pulse-amber 2s ease-in-out infinite;
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+@utility animate-wobble {
+  animation: wobble 0.8s ease-in-out;
+}
+
+@utility animate-shake {
+  animation: shake-subtle 0.5s ease-in-out;
 }
