@@ -101,6 +101,35 @@
     "wlAdmit": "Waitlist admit signals detected",
     "wlReject": "Waitlist rejection wave detected"
   },
+  "watch": {
+    "title": "Watch for Updates",
+    "desc": "Select schools to monitor. We'll check every 2 hours for new offers, waitlist movement, and more.",
+    "selectAll": "Select all",
+    "schoolsSelected": "schools selected",
+    "save": "Save watchlist",
+    "saving": "Saving...",
+    "signInRequired": "Sign in to watch",
+    "signInDesc": "Sign in to get notified when new offers or waitlist updates are reported.",
+    "signInButton": "Sign in",
+    "cta": "Watch for updates"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signInDesc": "We'll send a magic link to your email — no password needed.",
+    "emailPlaceholder": "your@email.com",
+    "sendLink": "Send magic link",
+    "sending": "Sending...",
+    "checkEmail": "Check your email!",
+    "checkEmailDesc": "We sent a magic link. Click it to sign in.",
+    "close": "Close"
+  },
+  "sidebar": {
+    "title": "History",
+    "newAnalysis": "New analysis",
+    "empty": "Your past analyses will appear here.",
+    "delete": "Delete",
+    "expand": "Expand sidebar"
+  },
   "metadata": {
     "title": "Waitlisteria — Admission Waitlist Tracker",
     "description": "Track graduate and undergraduate admission waitlists and offer trends in real time. Powered by AI."

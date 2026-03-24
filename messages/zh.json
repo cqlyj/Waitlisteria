@@ -101,6 +101,35 @@
     "wlAdmit": "检测到候补转录信号",
     "wlReject": "检测到候补拒绝波"
   },
+  "watch": {
+    "title": "监控更新",
+    "desc": "选择要监控的学校，我们每2小时检查一次新 offer、候补动态等。",
+    "selectAll": "全选",
+    "schoolsSelected": "所学校已选",
+    "save": "保存监控列表",
+    "saving": "保存中...",
+    "signInRequired": "登录以开启监控",
+    "signInDesc": "登录后可收到新 offer 或候补动态通知。",
+    "signInButton": "登录",
+    "cta": "监控更新"
+  },
+  "auth": {
+    "signInTitle": "登录",
+    "signInDesc": "输入邮箱，我们会发送一个免密登录链接。",
+    "emailPlaceholder": "你的邮箱",
+    "sendLink": "发送登录链接",
+    "sending": "发送中...",
+    "checkEmail": "查看邮箱！",
+    "checkEmailDesc": "我们已发送登录链接，请点击链接完成登录。",
+    "close": "关闭"
+  },
+  "sidebar": {
+    "title": "历史记录",
+    "newAnalysis": "新分析",
+    "empty": "你的分析记录将显示在这里。",
+    "delete": "删除",
+    "expand": "展开侧栏"
+  },
   "metadata": {
     "title": "候博士 — 录取候补追踪器",
     "description": "实时追踪研究生和本科录取候补名单与 offer 动态，AI 驱动。"
