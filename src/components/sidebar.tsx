@@ -49,12 +49,14 @@ export function Sidebar({
   onNewAnalysis,
   refreshTrigger,
   watchedCount,
+  onOpenWatchlist,
 }: {
   activeSessionId: string | null;
   onSelectSession: (id: string) => void;
   onNewAnalysis: () => void;
   refreshTrigger: number;
   watchedCount?: number;
+  onOpenWatchlist?: () => void;
 }) {
   const t = useTranslations("sidebar");
   const locale = useLocale();
@@ -142,15 +144,26 @@ export function Sidebar({
         </button>
       </div>
 
-      {/* Watched badge */}
-      {(watchedCount ?? 0) > 0 && (
-        <div className="px-4 pb-2">
-          <div className="flex items-center gap-2 text-xs text-text-secondary">
-            <span>🔔</span>
-            <span>{watchedCount} {locale === "zh" ? "个学校监控中" : "schools watched"}</span>
-          </div>
-        </div>
-      )}
+      {/* Watched badge — clickable to open watchlist manager */}
+      <div className="px-3 pb-2">
+        <button
+          onClick={() => onOpenWatchlist?.()}
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-left transition-colors hover:bg-bg-warm group"
+        >
+          <span className="text-base group-hover:scale-110 transition-transform">🔔</span>
+          <span className="text-xs text-text-secondary group-hover:text-text transition-colors">
+            {(watchedCount ?? 0) > 0
+              ? `${watchedCount} ${locale === "zh" ? "个学校监控中" : watchedCount === 1 ? "school watched" : "schools watched"}`
+              : locale === "zh" ? "管理监控列表" : "Manage watchlist"
+            }
+          </span>
+          {(watchedCount ?? 0) > 0 && (
+            <span className="ml-auto w-5 h-5 rounded-full bg-amber text-white text-[10px] font-bold flex items-center justify-center">
+              {watchedCount}
+            </span>
+          )}
+        </button>
+      </div>
 
       <div className="mx-3 border-t border-border/30" />
 
