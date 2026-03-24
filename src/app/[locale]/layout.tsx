@@ -50,7 +50,7 @@ export async function generateMetadata({
 
   const title = t("title");
   const description = t("description");
-  const url = "https://waitlisteria.com";
+  const url = "https://waitlisteria.vercel.app/";
 
   return {
     title,
