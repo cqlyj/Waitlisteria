@@ -86,9 +86,9 @@
     "banner": "Live search unavailable — showing cached result from {date}. Donate to restore live search."
   },
   "footer": {
-    "tagline": "Donations fund live AI search.",
-    "ethLabel": "ETH",
-    "withoutDonation": "Without donations, results may be up to 24h old.",
+    "tagline": "Donations: fund live AI search.",
+    "ethLabel": "ETH Address: ",
+    "withoutDonation": "Without donations, we cannot afford better AI models.",
     "free": "This tool is free and always will be."
   },
   "errors": {
@@ -122,6 +122,18 @@
     "checkEmail": "Check your email!",
     "checkEmailDesc": "We sent a magic link. Click it to sign in.",
     "close": "Close"
+  },
+  "watchlist": {
+    "title": "Watched Schools",
+    "empty": "No schools watched yet.",
+    "emptyHint": "Run an analysis and tap the bell to start watching.",
+    "emailOn": "Email notifications on",
+    "emailOff": "Email notifications off",
+    "remove": "Remove",
+    "removeConfirm": "Stop watching this school?",
+    "rounds": "{n} rounds",
+    "offWl": "{n} off WL",
+    "noDataYet": "No data yet"
   },
   "sidebar": {
     "title": "History",

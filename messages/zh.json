@@ -86,9 +86,9 @@
     "banner": "实时搜索暂不可用——显示 {date} 的缓存结果。捐赠以恢复实时搜索。"
   },
   "footer": {
-    "tagline": "捐赠支持实时 AI 搜索。",
-    "ethLabel": "ETH",
-    "withoutDonation": "无捐赠时，结果可能延迟最多 24 小时。",
+    "tagline": "捐赠: 支持候博士。",
+    "ethLabel": "ETH 地址: ",
+    "withoutDonation": "无捐赠时，我们无法负担更好的 AI 模型。",
     "free": "候博士永久免费。"
   },
   "errors": {
@@ -122,6 +122,18 @@
     "checkEmail": "查看邮箱！",
     "checkEmailDesc": "我们已发送登录链接，请点击链接完成登录。",
     "close": "关闭"
+  },
+  "watchlist": {
+    "title": "监控列表",
+    "empty": "还没有监控的学校。",
+    "emptyHint": "运行分析后点击铃铛开始监控。",
+    "emailOn": "邮件通知已开启",
+    "emailOff": "邮件通知已关闭",
+    "remove": "移除",
+    "removeConfirm": "确定取消监控此学校？",
+    "rounds": "{n} 轮",
+    "offWl": "{n} 人转录",
+    "noDataYet": "暂无数据"
   },
   "sidebar": {
     "title": "历史记录",
