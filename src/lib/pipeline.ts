@@ -2,6 +2,7 @@ import type { SchoolEntry, AgentResult } from "./types";
 import { getCached, setCache } from "./cache";
 import { callGemini } from "./gemini";
 import { validateAgentResponse } from "./validate-response";
+import { checkAndNotifyWatchers } from "./notify";
 
 export interface PipelineResult {
   data: AgentResult;
@@ -46,8 +47,12 @@ export async function analyzeSchool(
     await setCache(entry.institution, entry.program, entry.degree, season, result);
   } catch (err) {
     console.error("[pipeline] Cache write failed:", err);
-    // Non-fatal — result still returned to user
   }
+
+  // 5. Notify watchers (fire-and-forget, non-blocking)
+  checkAndNotifyWatchers(result).catch((err) =>
+    console.error("[pipeline] Notification check failed:", err)
+  );
 
   return { data: result, fromCache: false, warnings };
 }
