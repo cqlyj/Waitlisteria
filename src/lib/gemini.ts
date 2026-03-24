@@ -27,21 +27,37 @@ Target: ${entry.institution} — ${prog} — ${entry.degree} — ${entry.season}
 
 YOU MUST USE GOOGLE SEARCH. Do NOT answer from memory. Search for real data.
 
-=== SEARCH STRATEGY (search for BOTH historical AND current season) ===
+=== SEARCH STRATEGY (search ALL sources for BOTH historical AND current season) ===
 
-HISTORICAL DATA (past 5 years: ${prevYears.join(", ")}):
-- "${entry.institution} ${prog} ${entry.degree} admission results" site:thegradcafe.com
-- "${entry.institution} ${prog} ${entry.degree} admitted waitlisted ${prevYears[0]}" site:reddit.com
+You MUST search EACH of these sources separately. Do not skip any.
+
+GRADCAFE (thegradcafe.com) — has the MOST TROLLS, verify carefully:
+- Search: "${entry.institution} ${prog}" site:thegradcafe.com
+- Search: "${entry.institution} ${entry.degree}" site:thegradcafe.com
+- Gradcafe has structured result entries but is notorious for fake/troll submissions. Cross-reference with Reddit and other sources before trusting any Gradcafe data point.
+- Still count entries you found in source_counts.gradcafe — do NOT report 0 if you visited thegradcafe.com and found results.
+
+REDDIT:
+- Historical: "${entry.institution} ${prog} ${entry.degree} admitted waitlisted" site:reddit.com
+- Current: "${entry.institution} ${prog} ${entry.degree} ${entry.season} waitlist offer" site:reddit.com
+
+CHINESE SOURCES (小红书 / Rednote):
+- "${entry.institution} ${prog} ${entry.season} offer 候补 录取"
+
+GENERAL WEB:
 - "${entry.institution} ${prog} ${entry.degree} acceptance rate waitlist"
 - "${entry.institution} ${prog} graduate admissions statistics"
 
-CURRENT SEASON (${entry.season}):
-- "${entry.institution} ${prog} ${entry.degree} ${entry.season} waitlist offer" site:reddit.com
-- "${entry.institution} ${prog} ${entry.season} admitted waitlisted" site:thegradcafe.com
-- "${entry.institution} ${prog} ${entry.season} offer 候补 录取"
+Historical data (past 5 years: ${prevYears.join(", ")}) provides baselines.
+Current season (${entry.season}) data shows live progress. Both are needed.
 
-Historical data provides baselines (how many rounds, how many admitted, WL conversion rate).
-Current season data shows live progress. Both are needed.
+=== SOURCE COUNTING (critical — be accurate) ===
+Count how many distinct data points you found from each source:
+- source_counts.gradcafe: number of Gradcafe result entries found (this should almost NEVER be 0 for well-known programs)
+- source_counts.reddit: number of Reddit posts/comments with relevant info
+- source_counts.rednote: number of 小红书 posts found
+- source_counts.other: number of data points from other websites
+If you visited a source and found data there, you MUST count it. Do not under-report.
 
 === TROLL & NOISE FILTERING ===
 - IGNORE jokes, memes, sarcastic posts, posts with no specifics
@@ -70,7 +86,8 @@ Return ONLY valid JSON (no markdown fences, no explanation):
   "est_total_wl_pool": <your estimate of total people on the waitlist this season — typically 2-5x the reported count. Estimate from program size and acceptance rate if no direct data. MUST be > 0>,
 
   "more_offers_expected": <boolean, based on historical timing patterns>,
-  "next_offer_estimate": <string like "April 10 ± 2 weeks" based on when past years had rounds, or null>,
+  "next_offer_estimate_en": <string like "April 10 ± 2 weeks" in English, or null>,
+  "next_offer_estimate_zh": <string like "4月10日前后两周" in natural Chinese, or null>,
 
   "source_counts": { "reddit": <n>, "gradcafe": <n>, "rednote": <n>, "other": <n> },
   "rednote_available": <boolean>,
