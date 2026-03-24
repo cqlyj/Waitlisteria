@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { items } = body as {
+  const { items, lang } = body as {
     items: {
       school: string;
       program: string;
@@ -43,6 +43,7 @@ export async function POST(request: Request) {
       season: string;
       last_known_data?: Record<string, unknown>;
     }[];
+    lang?: string;
   };
 
   if (!Array.isArray(items) || items.length === 0) {
@@ -56,6 +57,7 @@ export async function POST(request: Request) {
     degree: item.degree,
     season: item.season,
     last_known_data: item.last_known_data ?? null,
+    lang: lang || "en",
   }));
 
   const { error } = await supabase
@@ -67,6 +69,43 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true }, { status: 201 });
+}
+
+export async function PATCH(request: Request) {
+  const supabase = await getAuthSupabase();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await request.json();
+  const { id, notify_email } = body as { id: string; notify_email?: boolean };
+
+  if (!id) {
+    return NextResponse.json({ error: "id required" }, { status: 400 });
+  }
+
+  const updates: Record<string, unknown> = {};
+  if (notify_email !== undefined) updates.notify_email = notify_email;
+
+  if (Object.keys(updates).length === 0) {
+    return NextResponse.json({ error: "No fields to update" }, { status: 400 });
+  }
+
+  const { error } = await supabase
+    .from("watchlist")
+    .update(updates)
+    .eq("id", id)
+    .eq("user_id", user.id);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true });
 }
 
 export async function DELETE(request: Request) {
