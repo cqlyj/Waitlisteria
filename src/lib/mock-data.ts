@@ -6,30 +6,41 @@ export function generateMockResult(
   degree: string,
   season: string
 ): AgentResult {
-  const rounds = Math.floor(Math.random() * 4) + 1;
-  const wlReports = Math.floor(Math.random() * 20) + 2;
-  const admitted = Math.floor(Math.random() * 40) + 15;
+  const histRounds = Math.floor(Math.random() * 4) + 1;
+  const histAdmittedLow = Math.floor(Math.random() * 40) + 15;
+  const histWl = Math.floor(Math.random() * 20) + 5;
+  const histWlAdmits = Math.floor(Math.random() * 10) + 2;
+  const curRounds = Math.floor(Math.random() * 3);
+  const curWl = Math.floor(Math.random() * 15);
+  const curWlAdmits = Math.floor(Math.random() * histWlAdmits);
+  const estPool = histWl + Math.floor(Math.random() * 30) + 10;
 
   return {
     school,
     program: program || "General",
     degree,
     season,
-    offer_rounds: rounds,
-    latest_round_date: "2026-03-18",
-    estimated_total_admitted: {
-      low: admitted,
-      high: admitted + Math.floor(Math.random() * 20) + 5,
+
+    historical_offer_rounds_avg: histRounds,
+    historical_admitted_avg: {
+      low: histAdmittedLow,
+      high: histAdmittedLow + Math.floor(Math.random() * 20) + 5,
     },
-    waitlisted_reports: wlReports,
+    historical_waitlisted_avg: histWl,
+    historical_wl_admits_avg: histWlAdmits,
     wl_to_admitted_historical_pct:
       Math.random() > 0.3 ? Math.floor(Math.random() * 25) + 5 : null,
+
+    current_offer_rounds: curRounds,
+    current_latest_round_date: curRounds > 0 ? "2026-03-18" : null,
+    current_waitlisted_reports: curWl,
+    current_wl_admits_so_far: curWlAdmits,
+    est_total_wl_pool: estPool,
+
     more_offers_expected: Math.random() > 0.3,
-    next_offer_estimate:
-      Math.random() > 0.3 ? "April 10 ± 2 weeks" : null,
-    wl_chance_low: 10,
-    wl_chance_high: 30,
-    wl_chance_label: "Low–Medium",
+    next_offer_estimate_en: Math.random() > 0.3 ? "April 10 ± 2 weeks" : null,
+    next_offer_estimate_zh: Math.random() > 0.3 ? "4月10日前后两周" : null,
+
     source_counts: {
       reddit: Math.floor(Math.random() * 15) + 1,
       gradcafe: Math.floor(Math.random() * 20) + 3,
@@ -37,8 +48,8 @@ export function generateMockResult(
       other: Math.floor(Math.random() * 3),
     },
     rednote_available: Math.random() > 0.4,
-    summary_en: `Based on ${wlReports} community reports, ${school}'s ${program} program has completed ${rounds} offer rounds so far this cycle. Waitlist movement appears moderate with some reports of admits from the waitlist in late March. The next wave is expected in mid-April.`,
-    summary_zh: `根据 ${wlReports} 条社区报告，${school} 的 ${program} 项目本轮已发放 ${rounds} 轮 offer。候补名单有一定动态，3 月下旬有少量候补转正的报告。预计下一波 offer 将在 4 月中旬发出。`,
+    summary_en: `Based on 5-year data, ${school}'s ${program} program averages ${histRounds} offer rounds. This season: ${curRounds} rounds reported, ${curWl} waitlisted. WL movement is moderate.`,
+    summary_zh: `根据近5年数据，${school} ${program} 项目平均每年 ${histRounds} 轮 offer。本季已报 ${curRounds} 轮，${curWl} 人候补，候补动态适中。`,
     data_quality: Math.random() > 0.7 ? "medium" : "high",
     last_fetched: new Date().toISOString(),
   };
