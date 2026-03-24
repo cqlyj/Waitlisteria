@@ -6,6 +6,7 @@ import { DM_Mono, DM_Sans, Noto_Sans_SC } from "next/font/google";
 import { routing, type Locale } from "@/i18n/routing";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { AuthProvider } from "@/components/auth-provider";
 import "../globals.css";
 
 const dmMono = DM_Mono({
@@ -69,9 +70,11 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="min-h-full flex flex-col bg-bg">
         <NextIntlClientProvider messages={messages}>
-          <Navbar locale={locale as Locale} />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <Navbar locale={locale as Locale} />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
