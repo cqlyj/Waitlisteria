@@ -10,6 +10,7 @@ import {
 import { SummaryPanel } from "@/components/summary-panel";
 import { Sidebar } from "@/components/sidebar";
 import { WatchPanel } from "@/components/watch-panel";
+import { WatchlistModal } from "@/components/watchlist-modal";
 import { useAuth } from "@/components/auth-provider";
 import type { SchoolEntry, SchoolResultState } from "@/lib/types";
 import {
@@ -42,6 +43,7 @@ export default function TrackPage() {
   const [sidebarRefresh, setSidebarRefresh] = useState(0);
   const [watchedCount, setWatchedCount] = useState(0);
   const [showWatchPanel, setShowWatchPanel] = useState(false);
+  const [showWatchlistModal, setShowWatchlistModal] = useState(false);
   const restoredRef = useRef(false);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -135,12 +137,14 @@ export default function TrackPage() {
 
         if (response.status === 429) {
           setGlobalError(t("errors.tooManyRequests"));
+          setResults([]);
           setIsAnalyzing(false);
           return;
         }
 
         if (!response.ok || !response.body) {
           setGlobalError(t("errors.agentFailed"));
+          setResults([]);
           setIsAnalyzing(false);
           return;
         }
@@ -200,6 +204,7 @@ export default function TrackPage() {
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
           setGlobalError(t("errors.agentFailed"));
+          setResults([]);
         }
       } finally {
         setIsAnalyzing(false);
@@ -255,12 +260,13 @@ export default function TrackPage() {
           onNewAnalysis={handleNewAnalysis}
           refreshTrigger={sidebarRefresh}
           watchedCount={watchedCount}
+          onOpenWatchlist={() => setShowWatchlistModal(true)}
         />
       )}
 
       {/* Main content */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-6 py-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
           {phase === "form" ? (
             <>
               <div className="mb-6">
@@ -359,6 +365,13 @@ export default function TrackPage() {
           entries={entries}
           results={results}
           onClose={() => setShowWatchPanel(false)}
+          onWatchCountChange={setWatchedCount}
+        />
+      )}
+
+      {showWatchlistModal && (
+        <WatchlistModal
+          onClose={() => setShowWatchlistModal(false)}
           onWatchCountChange={setWatchedCount}
         />
       )}

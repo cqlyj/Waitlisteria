@@ -20,7 +20,7 @@ export default function HomePage({
   return (
     <div className="flex flex-col items-center">
       {/* Hero */}
-      <section className="w-full max-w-3xl mx-auto px-6 pt-20 pb-12 text-center">
+      <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 pb-10 sm:pb-12 text-center">
         <div className="mb-8">
           <Logo locale={locale as Locale} size="large" />
         </div>
@@ -43,7 +43,7 @@ export default function HomePage({
       </section>
 
       {/* 3-step explainer */}
-      <section className="w-full max-w-3xl mx-auto px-6 pb-20">
+      <section className="w-full max-w-3xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
         <div className="grid md:grid-cols-3 gap-4">
           {(["one", "two", "three"] as const).map((step, i) => (
             <div
