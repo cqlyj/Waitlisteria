@@ -87,7 +87,7 @@
   },
   "footer": {
     "tagline": "Donations: fund live AI search.",
-    "ethLabel": "ETH Address: ",
+    "ethLabel": "ETH Address",
     "withoutDonation": "Without donations, we cannot afford better AI models.",
     "free": "This tool is free and always will be."
   },
