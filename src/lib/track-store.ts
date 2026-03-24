@@ -7,6 +7,7 @@ interface TrackState {
   entries: SchoolEntry[];
   results: SchoolResultState[];
   isAnalyzing: boolean;
+  sessionId: string | null;
   savedAt: number;
 }
 
