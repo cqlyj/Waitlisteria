@@ -1,10 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 import type { SchoolEntry, AgentResult } from "./types";
 
-// Gemini 3 Flash requires a paid plan for Google Search grounding.
-// Default to 2.5 Flash (free grounding), with 3 Flash as upgrade option.
-const PRIMARY_MODEL = "gemini-2.5-flash";
-const FALLBACK_MODEL = "gemini-2.0-flash";
+const PRIMARY_MODEL = "gemini-3-flash-preview";
+const FALLBACK_MODEL = "gemini-2.5-flash";
 
 let client: GoogleGenAI | null = null;
 
@@ -19,7 +17,10 @@ function getClient(): GoogleGenAI {
 function buildPrompt(entry: SchoolEntry): string {
   const prog = entry.program || "General";
   const seasonYear = entry.season.match(/\d{4}/)?.[0] ?? "2026";
-  const prevYears = Array.from({ length: 5 }, (_, i) => `${Number(seasonYear) - 1 - i}`);
+  const prevYears = Array.from(
+    { length: 5 },
+    (_, i) => `${Number(seasonYear) - 1 - i}`,
+  );
 
   return `You are a graduate admissions data analyst. Search the web for BOTH historical (past 5 years) and current season applicant reports about admission offers, waitlist activity, and outcomes for a specific program.
 
@@ -149,7 +150,7 @@ interface GeminiResult {
 
 async function callWithModel(
   entry: SchoolEntry,
-  model: string
+  model: string,
 ): Promise<GeminiResult> {
   const ai = getClient();
   const prompt = buildPrompt(entry);
@@ -180,15 +181,13 @@ async function callWithModel(
   return { raw, groundingMetadata };
 }
 
-export async function callGemini(
-  entry: SchoolEntry
-): Promise<GeminiResult> {
+export async function callGemini(entry: SchoolEntry): Promise<GeminiResult> {
   try {
     return await callWithModel(entry, PRIMARY_MODEL);
   } catch (error) {
     if (isQuotaError(error)) {
       console.error(
-        `[gemini] Quota exceeded on ${PRIMARY_MODEL}, falling back to ${FALLBACK_MODEL}`
+        `[gemini] Quota exceeded on ${PRIMARY_MODEL}, falling back to ${FALLBACK_MODEL}`,
       );
       try {
         return await callWithModel(entry, FALLBACK_MODEL);
