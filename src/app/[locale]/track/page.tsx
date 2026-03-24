@@ -9,7 +9,6 @@ import {
 } from "@/components/school-result-card";
 import { SummaryPanel } from "@/components/summary-panel";
 import type { SchoolEntry, SchoolResultState } from "@/lib/types";
-import { generateMockResult } from "@/lib/mock-data";
 import {
   saveTrackState,
   loadTrackState,
@@ -23,9 +22,10 @@ export default function TrackPage() {
   const [entries, setEntries] = useState<SchoolEntry[]>([]);
   const [results, setResults] = useState<SchoolResultState[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [globalError, setGlobalError] = useState<string | null>(null);
   const restoredRef = useRef(false);
+  const abortRef = useRef<AbortController | null>(null);
 
-  // Restore state from sessionStorage on mount (survives locale switch)
   useEffect(() => {
     if (restoredRef.current) return;
     restoredRef.current = true;
@@ -38,7 +38,6 @@ export default function TrackPage() {
     }
   }, []);
 
-  // Persist state whenever it changes (so locale switch preserves it)
   useEffect(() => {
     if (phase === "results" && results.length > 0) {
       saveTrackState({ phase, entries, results, isAnalyzing });
@@ -54,6 +53,7 @@ export default function TrackPage() {
       setEntries(schools);
       setIsAnalyzing(true);
       setPhase("results");
+      setGlobalError(null);
 
       const initial: SchoolResultState[] = schools.map((s) => ({
         schoolId: s.id,
@@ -61,41 +61,102 @@ export default function TrackPage() {
       }));
       setResults(initial);
 
-      for (const school of schools) {
-        const delay = 800 + Math.random() * 2000;
-        await new Promise((resolve) => setTimeout(resolve, delay));
+      const abort = new AbortController();
+      abortRef.current = abort;
 
-        const mockData = generateMockResult(
-          school.institution,
-          school.program,
-          t(`form.degrees.${school.degree}`),
-          school.season
-        );
+      try {
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ schools, locale }),
+          signal: abort.signal,
+        });
 
-        setResults((prev) =>
-          prev.map((r) =>
-            r.schoolId === school.id
-              ? {
-                  ...r,
-                  status: "done" as const,
-                  data: mockData,
-                  fromCache: false,
-                }
-              : r
-          )
-        );
+        if (response.status === 429) {
+          setGlobalError(t("errors.tooManyRequests"));
+          setIsAnalyzing(false);
+          return;
+        }
+
+        if (!response.ok || !response.body) {
+          setGlobalError(t("errors.agentFailed"));
+          setIsAnalyzing(false);
+          return;
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            const jsonStr = line.slice(6).trim();
+            if (!jsonStr) continue;
+
+            try {
+              const event = JSON.parse(jsonStr);
+
+              if (event.type === "result") {
+                setResults((prev) =>
+                  prev.map((r) =>
+                    r.schoolId === event.schoolId
+                      ? {
+                          ...r,
+                          status: "done" as const,
+                          data: event.data,
+                          fromCache: event.fromCache,
+                        }
+                      : r
+                  )
+                );
+              } else if (event.type === "error") {
+                setResults((prev) =>
+                  prev.map((r) =>
+                    r.schoolId === event.schoolId
+                      ? {
+                          ...r,
+                          status: "error" as const,
+                          error: event.message,
+                        }
+                      : r
+                  )
+                );
+              } else if (event.type === "done") {
+                // All schools processed
+              }
+            } catch {
+              // Skip malformed SSE lines
+            }
+          }
+        }
+      } catch (err) {
+        if ((err as Error).name !== "AbortError") {
+          setGlobalError(t("errors.agentFailed"));
+        }
+      } finally {
+        setIsAnalyzing(false);
+        abortRef.current = null;
       }
-
-      setIsAnalyzing(false);
     },
-    [t]
+    [locale, t]
   );
 
   function handleReset() {
+    if (abortRef.current) abortRef.current.abort();
     setPhase("form");
     setResults([]);
     setEntries([]);
     setIsAnalyzing(false);
+    setGlobalError(null);
     clearTrackState();
   }
 
@@ -144,6 +205,12 @@ export default function TrackPage() {
               }}
             />
           </div>
+
+          {globalError && (
+            <div className="mb-4 p-4 bg-coral/10 border border-coral/20 rounded-xl text-sm text-coral animate-fade-in">
+              {globalError}
+            </div>
+          )}
 
           <div className="space-y-4">
             {results.map((result, i) => {
