@@ -20,21 +20,27 @@ export interface AgentResult {
   program: string;
   degree: string;
   season: string;
-  offer_rounds: number;
-  latest_round_date: string | null;
-  estimated_total_admitted: { low: number; high: number } | null;
-  waitlisted_reports: number;
+
+  // --- HISTORICAL (5-year average) ---
+  historical_offer_rounds_avg: number;
+  historical_admitted_avg: { low: number; high: number } | null;
+  historical_waitlisted_avg: number;
+  historical_wl_admits_avg: number;
   wl_to_admitted_historical_pct: number | null;
+
+  // --- THIS SEASON ---
+  current_offer_rounds: number;
+  current_latest_round_date: string | null;
+  current_waitlisted_reports: number;
+  current_wl_admits_so_far: number;
+  est_total_wl_pool: number;
+
+  // --- PREDICTION (based on 5-year historical patterns) ---
   more_offers_expected: boolean;
-  next_offer_estimate: string | null;
-  wl_chance_low: number;
-  wl_chance_high: number;
-  wl_chance_label:
-    | "Low"
-    | "Low–Medium"
-    | "Medium"
-    | "Medium–High"
-    | "High";
+  next_offer_estimate_en: string | null;
+  next_offer_estimate_zh: string | null;
+
+  // --- META ---
   source_counts: {
     reddit: number;
     gradcafe: number;
